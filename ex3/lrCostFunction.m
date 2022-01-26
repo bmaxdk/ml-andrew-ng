@@ -47,6 +47,33 @@ grad = zeros(size(theta));
 
 % =============================================================
 
+n = size(X,2); % number of features
+m = size(X,1);
+% m = length(y)
+% fprintf('size theta = %f %f', size(theta)) % 4x1
+% fprintf('\nsize X = %f %f', size(X)) %5x4
+%% cost
+z = X*theta; %5x1
+h = sigmoid(z); %5x1
+lr = (-y .* log(h)) - ((1-y) .* log(1-h));
+sumLr = (ones(1,m)* lr)/m;
+
+% regularization 
+% *Note that you should not be regularizing  which is used for the bias term.
+sumReg = (lambda/(2*m))*(theta(2:end,:)' * theta(2:end,:));
+
+% cost function
+J = sumLr + sumReg;
+
+%% grad
+% at j == 0
+% grad(1) = ((h-y)' * X(:,1))/m
+grad(1) = X(:,1)'*(h-y)/m;
+% at j = 1:n
+grad(2:end, :) = (X(:,2:end)'* (h-y))./m+ (lambda/m) .* theta(2:end,:);
+
 grad = grad(:);
 
+
 end
+
