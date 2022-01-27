@@ -45,7 +45,6 @@ h3 = sigmoid(z3);
 
 [M, p] = max(h3, [], 2);
 
-% z2 = [ones(
 
 
 end
