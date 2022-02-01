@@ -23,9 +23,21 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
+% For both  and  we suggest trying values in multiplicative steps (e.g., 0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30).
+corsig = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
+size(corsig);
+for i = 1:length(corsig)
+    for j = 1:length(corsig)
+        model = svmTrain(X, y,corsig(i), @(x1,x2)gaussianKernel(x1,x2,corsig(j)));
+        predictions = svmPredict(model,Xval);
+        error(i,j) = mean(double(predictions ~= yval));
+    end
+end
 
-
-
+error_min = min(min(error));
+[i, j] = find(error == error_min);
+C = corsig(i);
+sigma = corsig(j);
 
 
 
