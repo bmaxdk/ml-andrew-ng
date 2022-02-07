@@ -25,8 +25,14 @@ centroids = zeros(K, n);
 %
 % Note: You can use a for-loop over the centroids to compute this.
 %
-
-
+% X 300x2
+% idx 300x1
+for i = 1:K
+    X_i = X(find(idx == i),:);
+    Ck = size(X_i,1);
+    centroids(i,:) = sum(X_i)./Ck;
+end
+    
 
 
 

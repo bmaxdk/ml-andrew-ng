@@ -20,13 +20,15 @@ idx = zeros(size(X,1), 1);
 %
 % Note: You can use a for-loop over the examples to compute this.
 %
+% X = 300x2
+% centroids = 3x2
+m = size(X,1);
 
+for i = 1:m
+    l2 = sum((X(i,:) - centroids).^2,2);
+    [M, idx(i)] = min(l2);
 
-
-
-
-
-
+end
 % =============================================================
 
 end
