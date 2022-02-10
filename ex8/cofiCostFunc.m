@@ -40,14 +40,19 @@ Theta_grad = zeros(size(Theta));
 %                     partial derivatives w.r.t. to each element of Theta
 %
 
+% given: params, Y, R, num_users, num_movies, num_features, lambda
+% 1 implementing the cost function w/out regularization
 
+% X 5X4
+% Theta 4x3
+error = X*Theta' - Y; % 5x4
+% R 5x4
+% R(i,j) = 1
+J = (1/2) *sum(sum((error.*R).^2))+(lambda/2)*(sum(sum(Theta.^2))+sum(sum(X.^2)));
 
-
-
-
-
-
-
+% X_grad, Theta_grad
+X_grad = (error.*R)*Theta+lambda*X;
+Theta_grad = (error.*R)'*X+lambda*Theta;
 
 
 

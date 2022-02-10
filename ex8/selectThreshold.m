@@ -22,11 +22,22 @@ for epsilon = min(pval):stepsize:max(pval)
     %               
     % Note: You can use predictions = (pval < epsilon) to get a binary vector
     %       of 0's and 1's of the outlier predictions
+% ex: fp = sum((cvPredictions == 1) & (yval == 0))
+% given yval, pval
 
+%% tp true positive:
+tp = sum(yval==1 & pval < epsilon);
+%% fp False positive:
+fp = sum(yval==0 & pval < epsilon);
+%% fn false negative:
+fn = sum(yval==1 & pval >= epsilon);
 
+%% compute precision and recall
+prec = tp/(tp+fp);
+rec = tp/(tp+fn);
 
-
-
+%% F1 score:
+F1 = 2*(prec)*(rec)/(prec+rec);
 
 
 
